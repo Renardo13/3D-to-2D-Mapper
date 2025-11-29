@@ -22,6 +22,14 @@ python3 map.py <png | svg> <path to the.obj file>
 - ⚙️ Adjustable grid resolution / cell density (Macro inside the code)
 - 🚀 Efficient even with dense LiDAR or photogrammetry meshes
 
+### What is possible to change
+
+- **Output format**: Choose between `PNG` or `SVG` as the output file type.
+- **Grid density**: Adjust the `GRID_SIZE` parameter to make the 2D projection more or less pixelated. Smaller `GRID_SIZE` = finer cells.
+- **Number of color bands**: Modify `N_BANDS` to control how many discrete color levels are used.
+- **Color gradient**: Use any two RGB colors (`start_color` and `end_color`) to define the gradient for height mapping. The higher the height, the closer the color to `end_color`.
+
+
 ---
 
 
