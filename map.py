@@ -5,6 +5,28 @@ import numpy as np
 import svgwrite
 from PIL import Image, ImageDraw
 
+
+# ----------------------
+# Choose your gradient color
+# ----------------------
+start_color = CYAN 
+end_color   = MAGENTA
+
+
+# ----------------------
+# RGB Color Macros
+# ----------------------
+BLUE       = (0, 0, 255)
+RED        = (255, 0, 0)
+ORANGE     = (255, 50, 19)
+GREEN      = (0, 255, 0)
+YELLOW     = (255, 255, 0)
+CYAN       = (0, 255, 255)
+MAGENTA    = (255, 0, 255)
+WHITE      = (255, 255, 255)
+BLACK      = (0, 0, 0)
+GRAY       = (128, 128, 128)
+
 # ----------------------
 # Paramètres
 # ----------------------
@@ -12,6 +34,8 @@ SVG_MAX_SIZE = 4000
 N_BANDS = 10
 ALPHA_MIN = 1.0
 ALPHA_MAX = 1.0
+
+# ------------------------------------------------------------------------------------------------
 
 # ----------------------
 # Vérification arguments
@@ -103,15 +127,20 @@ height_grid[mask] = sum_grid[mask] / count_grid[mask]
 z_min, z_max = np.nanmin(height_grid), np.nanmax(height_grid)
 band_edges = np.linspace(z_min, z_max, N_BANDS+1)
 
-def height_to_color(h):
+def height_to_color(h, start_rgb, end_rgb):
+    # relative position in height range
+    t = (h - z_min) / (z_max - z_min) if z_max > z_min else 1.0
+    
+    # linear interpolation for each channel
+    r = int(start_rgb[0] + (end_rgb[0] - start_rgb[0]) * t)
+    g = int(start_rgb[1] + (end_rgb[1] - start_rgb[1]) * t)
+    b = int(start_rgb[2] + (end_rgb[2] - start_rgb[2]) * t)
+    
+    # compute band index
     band = np.searchsorted(band_edges, h, side='right') - 1
-    t = band / (N_BANDS-1)
-
-    r = int(255*t)
-    g = 50
-    b = int(255*(1-t))
-
+    
     return (r, g, b), band
+
 
 
 # ----------------------
@@ -130,7 +159,7 @@ if OUTPUT_MODE == "svg":
             for j in range(ny):
                 if np.isnan(height_grid[i,j]):
                     continue
-                color, b = height_to_color(height_grid[i,j])
+                color, b = height_to_color(height_grid[i,j], start_color, end_color)
                 if b != band:
                     continue
 
@@ -163,7 +192,7 @@ if OUTPUT_MODE == "png":
             for j in range(ny):
                 if np.isnan(height_grid[i,j]):
                     continue
-                color, b = height_to_color(height_grid[i,j])
+                color, b = height_to_color(height_grid[i,j], start_color, end_color)
                 if b != band:
                     continue
 
