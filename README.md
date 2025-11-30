@@ -1,7 +1,7 @@
 # 🗺️ 3D-to-2D Mapper
 
 This project provides a simple and efficient tool to **project a 3D mesh into a 2D top-down map**, suitable for **cartography, georeferencing and spatial analysis**.  
-It takes a 3D model in OBJ format (from photogrammetry, LiDAR scanning, or mobile 3D apps) and converts it into a **2D colored raster or vector map** based on the vertical height of the geometry.
+It takes a 3D model in OBJ format (from photogrammetry, LiDAR scanning, or mobile 3D apps) and converts it into a **2D colored raster or vector map** based on the vertical height.
 
 ---
 
