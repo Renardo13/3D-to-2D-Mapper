@@ -7,7 +7,7 @@ It takes a 3D model in OBJ format (from photogrammetry, LiDAR scanning, or mobil
 
 ## 🛠️ Usage
 
-### Basic command (PNG output)
+### Command (You can choose the output format)
 ```bash
 python3 map.py <png | svg> <path to the.obj file>           
 ```
